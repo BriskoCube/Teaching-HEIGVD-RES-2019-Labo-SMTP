@@ -1,6 +1,52 @@
+import Config.ConfigManager;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Client {
-    public static void main(String [] args)
-    {
-        System.out.println("HEY");
+
+    static final Logger LOG = Logger.getLogger(Client.class.getName());
+
+
+    private Socket clientSocket = null;
+    private BufferedReader reader = null;
+    private BufferedOutputStream writer = null;
+
+    public Client(String host, int port) {
+        try {
+            clientSocket = new Socket(host, port);
+
+            // Prepare output streams
+            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            writer = new BufferedOutputStream(clientSocket.getOutputStream());
+        } catch (IOException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void main(String [] args) throws IOException {
+
+        ConfigManager cm = new ConfigManager();
+
+        System.out.println(cm.serverHost());
+        System.out.println(cm.serverPort());
+
+        /*Client cli = new Client("localhost", 2525);
+
+        String str = "EHLO";
+
+        cli.writer.write(str.getBytes());
+        cli.writer.flush();
+
+        String line = cli.reader.readLine();
+
+        System.out.println(line);
+
+        System.out.println("HEY");*/
     }
 }
