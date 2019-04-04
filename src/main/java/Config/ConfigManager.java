@@ -10,23 +10,37 @@ public class ConfigManager {
     Properties prop = new Properties();
     InputStream input = null;
 
-    public ConfigManager(){
+    public ConfigManager() throws ConfigException {
         try{
             input = new FileInputStream("config.properties");
             prop.load(input);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new ConfigException("The configuration file is missing.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConfigException("Error while reading the configuration file.");
         }
-
     }
 
-    public String serverHost(){
-        return prop.getProperty("serverhost");
+    public String serverHost() throws ConfigException {
+        String serverHost = prop.getProperty("serverhost");
+
+        if(serverHost == null || serverHost.length() == 0)
+            throw new ConfigException( "The proprety 'serverhost' is not defined or empty.");
+
+        return serverHost;
     }
 
-    public int serverPort(){
-        return Integer.parseInt(prop.getProperty("serverhost"));
+    public int serverPort() throws ConfigException {
+        try{
+            return Integer.parseInt(prop.getProperty("serverport"));
+        } catch (NumberFormatException e) {
+            throw new ConfigException("The server port is not a number.");
+        }
+    }
+
+    public class ConfigException extends Exception{
+        public ConfigException(String message) {
+            super(message);
+        }
     }
 }

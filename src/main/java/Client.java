@@ -31,10 +31,15 @@ public class Client {
 
     public static void main(String [] args) throws IOException {
 
-        ConfigManager cm = new ConfigManager();
+        try{
+            ConfigManager cm = new ConfigManager();
 
-        System.out.println(cm.serverHost());
-        System.out.println(cm.serverPort());
+            System.out.println(cm.serverHost());
+            System.out.println(cm.serverPort());
+        } catch (ConfigManager.ConfigException e) {
+            e.printStackTrace();
+        }
+
 
         /*Client cli = new Client("localhost", 2525);
 
