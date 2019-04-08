@@ -7,8 +7,7 @@ public class Group {
     private EmailAddress sender;
     private LinkedList<EmailAddress> victims;
 
-    public Group(Message message, EmailAddress sender, LinkedList<EmailAddress> victims) {
-        this.message = message;
+    public Group(EmailAddress sender, LinkedList<EmailAddress> victims) {
         this.sender = sender;
         this.victims = victims;
     }
@@ -23,5 +22,9 @@ public class Group {
 
     public LinkedList<EmailAddress> getVictims() {
         return victims;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 }
