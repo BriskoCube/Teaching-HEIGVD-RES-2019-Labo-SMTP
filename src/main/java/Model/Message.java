@@ -1,11 +1,11 @@
 package Model;
 
 public class Message {
-    private String object;
-    private String message;
+    private String subject;
+    private String body;
 
-    public Message(String object, String message) {
-        this.object = object;
-        this.message = message;
+    public Message(String subject, String body) {
+        this.subject = subject;
+        this.body = body;
     }
 }

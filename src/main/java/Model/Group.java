@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 public class Group {
     private Message message;
-    private Email sender;
-    private LinkedList<Email> victims;
+    private EmailAddress sender;
+    private LinkedList<EmailAddress> victims;
 
-    public Group(Message message, Email sender, LinkedList<Email> victims) {
+    public Group(Message message, EmailAddress sender, LinkedList<EmailAddress> victims) {
         this.message = message;
         this.sender = sender;
         this.victims = victims;
@@ -17,11 +17,11 @@ public class Group {
         return message;
     }
 
-    public Email getSender() {
+    public EmailAddress getSender() {
         return sender;
     }
 
-    public LinkedList<Email> getVictims() {
+    public LinkedList<EmailAddress> getVictims() {
         return victims;
     }
 }
