@@ -2,6 +2,8 @@ package Config;
 
 import Model.EmailAddress;
 import Model.Group;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,71 +11,29 @@ import java.util.LinkedList;
 import java.util.Properties;
 
 public class ConfigManager {
-    private Properties prop = new Properties();
-    private Properties group = new Properties();
+    protected Properties prop = new Properties();
     private InputStream input;
 
     private ArrayList<Group> groups = new ArrayList<Group>();
 
-    public ConfigManager() throws ConfigException {
-        load_config("config.properties");
-        load_groups("group.properties");
-    }
+    public ConfigManager(InputStream configStream) throws ConfigException {
 
-    private void load_config(String configFile) throws ConfigException {
-        try{
-            input = new FileInputStream(configFile);
-            prop.load(input);
-            input.close();
-        } catch (FileNotFoundException e) {
-            throw new ConfigException("The configuration file is missing.");
+        try {
+            prop.load(configStream);
         } catch (IOException e) {
             throw new ConfigException("Error while reading the configuration file.");
         }
     }
 
-    private void load_groups(String groupsFile) throws ConfigException {
-        try{
-            input = new FileInputStream(groupsFile);
-            group.load(input);
-            input.close();
-
-            for (int i = 1; i < Integer.parseInt(group.getProperty("groupnumber")); ++i) {
-                createGroup(i);
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new ConfigException("The group file is missing.");
-        } catch (IOException e) {
-            throw new ConfigException("Error while reading the group file.");
-        }
-    }
-
-    private void createGroup(int groupId) throws ConfigException {
+    public static ConfigManager fromFile(File filePath) throws ConfigException {
         try {
-            LinkedList<EmailAddress> victims = new LinkedList<EmailAddress>();
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(
-                                    group.getProperty(groupId + ".victimsfile")),
-                            "UTF-8"
-                    )
-            );
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                victims.add(new EmailAddress(line));
-            }
-
-            reader.close();
-
-            groups.add(new Group(new EmailAddress(group.getProperty(groupId + ".sender")), victims));
+            return new ConfigManager(new FileInputStream(filePath));
         } catch (FileNotFoundException e) {
-            throw new ConfigException("One of the victims file is missing.");
-        } catch (IOException e) {
-            throw new ConfigException("Error while reading one of the victims file.");
+            throw new ConfigException("The configuration file is missing.");
         }
     }
+
+
 
     public String serverHost() throws ConfigException {
         String serverHost = prop.getProperty("serverhost");
@@ -92,7 +52,7 @@ public class ConfigManager {
         }
     }
 
-    public class ConfigException extends Exception{
+    public static class ConfigException extends Exception{
         public ConfigException(String message) {
             super(message);
         }

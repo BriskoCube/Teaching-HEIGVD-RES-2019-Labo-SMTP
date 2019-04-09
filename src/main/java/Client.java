@@ -1,9 +1,7 @@
+import Config.AppConfigManager;
 import Config.ConfigManager;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +30,7 @@ public class Client {
     public static void main(String [] args) throws IOException {
 
         try{
-            ConfigManager cm = new ConfigManager();
+            ConfigManager cm = AppConfigManager.fromFile(new File("config.properties"));
 
             System.out.println(cm.serverHost());
             System.out.println(cm.serverPort());
