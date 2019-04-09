@@ -90,21 +90,7 @@ public class ConfigManagerTest {
         return random.nextInt((max - min) + 1) + min;
     }
 
-    @Test
-    public void AppConfigTest() {
-        String testConfig = "serverhost=localhost\nserverport=2525";
 
-        InputStream inputStream = new ByteArrayInputStream(testConfig.getBytes(StandardCharsets.UTF_8));
-
-        try {
-            AppConfigManager appConfigManager = new AppConfigManager(inputStream);
-            assertEquals(appConfigManager.serverHost(), "localhost");
-            assertEquals(appConfigManager.serverPort(), 2525);
-        } catch (ConfigManager.ConfigException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static String randomAlphaNumeric(int count) {
         StringBuilder builder = new StringBuilder();
@@ -122,6 +108,5 @@ public class ConfigManagerTest {
     @AfterAll
     public static void RevertTestConfig() {
         System.out.println("yay2");
-
     }
 }
