@@ -26,14 +26,27 @@ class AppConfigManagerTest {
     }
 
     @Test
-    public void AppPortError(){
-        String testConfig = "serverhost=localhost\nserverport=sdsa";
+    public void AppConfigIpTest() throws ConfigManager.ConfigException {
+        String testConfig = "serverhost=192.167.19.23\nserverport=12345";
 
         InputStream inputStream = new ByteArrayInputStream(testConfig.getBytes(StandardCharsets.UTF_8));
 
         AppConfigManager appConfigManager = new AppConfigManager(inputStream);
-        System.out.println();
-        assertThrows(ConfigManager.ConfigException.class, () -> appConfigManager.serverPort(), "The server port is not a number.")
+        assertEquals(appConfigManager.serverHost(), "192.167.19.23");
+        assertEquals(appConfigManager.serverPort(), 12345);
+
+    }
+
+    @Test
+    public void ConfigError() throws ConfigManager.ConfigException {
+        String testConfig = "serverhost=\nserverport=sdsa";
+
+        InputStream inputStream = new ByteArrayInputStream(testConfig.getBytes(StandardCharsets.UTF_8));
+
+        AppConfigManager appConfigManager = new AppConfigManager(inputStream);
+        assertThrows(ConfigManager.ConfigException.class, () -> appConfigManager.serverPort(), "The server port is not a number.");
+
+        assertThrows(ConfigManager.ConfigException.class, () -> appConfigManager.serverHost(), "The proprety 'serverhost' is not defined or empty.");
 
     }
 
