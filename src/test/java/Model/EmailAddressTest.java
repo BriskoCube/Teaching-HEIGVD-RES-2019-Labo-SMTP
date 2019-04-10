@@ -1,12 +1,6 @@
 package Model;
 
-import Config.AppConfigManager;
-import Config.ConfigManager;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,7 +40,7 @@ public class EmailAddressTest {
         try {
             EmailAddress emailAddress = new EmailAddress(mail);
 
-            assertTrue(mail.equals(new EmailAddress(mail)));
+            assertTrue(emailAddress.equals(new EmailAddress(mail)));
         } catch (EmailAddress.EmailBadFormat e) {
             e.printStackTrace();
         }
