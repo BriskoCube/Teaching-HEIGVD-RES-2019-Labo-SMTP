@@ -36,4 +36,14 @@ public class Client {
     public BufferedOutputStream getWriter() {
         return writer;
     }
+
+    public void close() {
+        try {
+            reader.close();
+            writer.close();
+            clientSocket.close();
+        } catch (IOException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+    }
 }

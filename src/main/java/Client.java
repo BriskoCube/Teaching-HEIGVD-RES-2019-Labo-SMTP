@@ -1,12 +1,13 @@
 import Config.AppConfigManager;
 import Config.ConfigManager;
+import Config.GroupConfigManager;
 import Model.EmailAddress;
+import Model.Group;
 import Model.Message;
 import Smtp.Email;
 import Smtp.Sender;
 
-import java.io.*;
-import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,65 +15,42 @@ public class Client {
 
     static final Logger LOG = Logger.getLogger(Client.class.getName());
 
-
-    private Socket clientSocket = null;
-    private BufferedReader reader = null;
-    private BufferedOutputStream writer = null;
-
-    public Client(String host, int port) {
-        try {
-            clientSocket = new Socket(host, port);
-
-            // Prepare output streams
-            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            writer = new BufferedOutputStream(clientSocket.getOutputStream());
-        } catch (IOException ex) {
-            LOG.log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void main(String [] args) throws IOException {
-
-        System.out.println( );
+    public static void main(String [] args) {
+        System.out.println("Super client ready to prank\n");
 
         try{
-
             Message message = new Message("Test", "Super message spam");
-            Email email = new Email(message, new EmailAddress("julien.quartier@test.ch"), new EmailAddress("sdjh@dg.com"));
 
             AppConfigManager cm = new AppConfigManager(Client.class.getResourceAsStream("config.properties"));
 
-            Smtp.Client client = new Smtp.Client(cm.serverHost(), cm.serverPort());
+            GroupConfigManager gm = new GroupConfigManager(Client.class.getResourceAsStream("group.properties"));
 
+            System.out.println("Which configured group would you like to use: ");
 
-            Sender sender = new Sender(client, email);
+            int i = 0;
+            for (Group group : gm.getGroups()) {
+                System.out.println(i++ + " sender:" + group.getSender());
+            }
 
-            if(sender.sendCmd()){
-                System.out.println("OK");
-            } else {
-                System.out.println("Error");
+            Scanner input = new Scanner(System.in);
+            Group group = gm.getGroups().get(input.nextInt());
+
+            for (EmailAddress ea : group.getVictims()) {
+                Smtp.Client client = new Smtp.Client(cm.serverHost(), cm.serverPort());
+                Sender sender = new Sender(client, new Email(message, group.getSender(), ea));
+
+                if(sender.sendCmd()){
+                    System.out.println("OK");
+                } else {
+                    System.out.println("Error");
+                }
+
+                client.close();
             }
 
 
-        } catch (ConfigManager.ConfigException e) {
-            e.printStackTrace();
-        } catch (EmailAddress.EmailBadFormat emailBadFormat) {
-            emailBadFormat.printStackTrace();
+        } catch (ConfigManager.ConfigException ex) {
+            LOG.log(Level.SEVERE, null, ex);
         }
-
-
-
-        /*Client cli = new Client("localhost", 2525);
-
-        String str = "EHLO";
-
-        cli.writer.write(str.getBytes());
-        cli.writer.flush();
-
-        String line = cli.reader.readLine();
-
-        System.out.println(line);
-
-        System.out.println("HEY");*/
     }
 }
