@@ -1,7 +1,7 @@
 package Smtp;
 
 public class Header {
-    enum HeaderType{
+    enum HeaderType {
         FROM("From"),
         TO("To"),
         SUBJECT("Subject"),
@@ -9,12 +9,12 @@ public class Header {
 
         private String name;
 
-        HeaderType(String name){
+        HeaderType(String name) {
             this.name = name;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return name;
         }
     }
@@ -29,6 +29,6 @@ public class Header {
 
     @Override
     public String toString() {
-        return headerType + ": ";
+        return headerType + ": " + value;
     }
 }
