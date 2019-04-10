@@ -16,4 +16,9 @@ public class EmailAddress {
         EmailAddress ea = (EmailAddress)obj;
         return this.email.equals(ea.email);
     }
+
+    @Override
+    public String toString() {
+        return email;
+    }
 }
