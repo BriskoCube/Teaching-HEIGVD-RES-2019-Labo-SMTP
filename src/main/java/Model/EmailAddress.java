@@ -28,6 +28,10 @@ public class EmailAddress {
         return email;
     }
 
+    public String forHeader() {
+        return "<" + email + ">";
+    }
+
     private boolean isValidEmailAddress(String email) {
         // OWASP email regex validation
         Pattern validEmailAddress = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
