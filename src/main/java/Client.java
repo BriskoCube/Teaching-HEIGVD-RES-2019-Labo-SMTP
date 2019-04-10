@@ -34,6 +34,7 @@ public class Client {
 
             Scanner input = new Scanner(System.in);
             Group group = gm.getGroups().get(input.nextInt());
+            input.close();
 
             for (EmailAddress ea : group.getVictims()) {
                 Smtp.Client client = new Smtp.Client(cm.serverHost(), cm.serverPort());
