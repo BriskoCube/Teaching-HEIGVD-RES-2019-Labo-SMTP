@@ -12,9 +12,7 @@ public class Sender {
         this.email = email;
     }
 
-    public boolean send() {
-
-
+    public boolean sendCmd() {
         try {
             hello();
 
@@ -40,7 +38,7 @@ public class Sender {
 
         readServer(220);
 
-        send("EHLO SuperClient\r\n");
+        sendCmd("EHLO SuperClient\r\n");
 
         while (readServer(250).hasMore()) ;
     }
@@ -59,10 +57,10 @@ public class Sender {
     }
 
     private void sendServerHeader() throws Exception {
-        send("MAIL FROM: " + email.getFrom().forHeader() + "\r\n");
+        sendCmd("MAIL FROM: " + email.getFrom().forHeader() + "\r\n");
         readServer(250);
 
-        send("RCPT TO: " + email.getTo().forHeader() + "\r\n");
+        sendCmd("RCPT TO: " + email.getTo().forHeader() + "\r\n");
         readServer(250);
     }
 
@@ -79,24 +77,24 @@ public class Sender {
     }
 
     private void beginData() throws Exception {
-        send("DATA\r\n");
+        sendCmd("DATA\r\n");
 
         readServer(354);
     }
 
     private void endData() throws Exception {
-        send("\r\n.\r\n");
+        sendCmd("\r\n.\r\n");
 
         readServer(250);
     }
 
     private void quit() throws Exception {
-        send("QUIT\r\n");
+        sendCmd("QUIT\r\n");
 
         readServer(221);
     }
 
-    private void send(String str) throws Exception {
+    private void sendCmd(String str) throws Exception {
         System.out.print("C: " + str);
 
         client.getWriter().write(str.getBytes());

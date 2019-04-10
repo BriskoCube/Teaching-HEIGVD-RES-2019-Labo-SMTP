@@ -4,7 +4,6 @@ import Model.EmailAddress;
 import Model.Message;
 import Smtp.Email;
 import Smtp.Sender;
-import Smtp.ServerResponse;
 
 import java.io.*;
 import java.net.Socket;
@@ -48,7 +47,7 @@ public class Client {
 
             Sender sender = new Sender(client, email);
 
-            if(sender.send()){
+            if(sender.sendCmd()){
                 System.out.println("OK");
             } else {
                 System.out.println("Error");
