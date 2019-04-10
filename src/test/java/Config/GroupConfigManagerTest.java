@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GroupConfigManagerTest {
 
     //Charset for emails
-    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_`{|}~";
+    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+&*-_";
 
     protected static Random random = new Random();
 

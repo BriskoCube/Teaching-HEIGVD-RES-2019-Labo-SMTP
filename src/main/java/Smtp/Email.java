@@ -1,9 +1,15 @@
 package Smtp;
 
+import Model.EmailAddress;
 import Model.Message;
 
 public class Email {
-    /*public Email(Message message, From from, To to){
+    private Message message;
+    private EmailAddress from, to;
 
-    }*/
+    public Email(Message message, EmailAddress from, EmailAddress to){
+        this.message = message;
+        this.from = from;
+        this.to = to;
+    }
 }
