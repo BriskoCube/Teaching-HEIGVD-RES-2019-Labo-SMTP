@@ -56,6 +56,8 @@ public class GroupConfigManager extends ConfigManager {
             throw new ConfigException("One of the victims file is missing.");
         } catch (IOException e) {
             throw new ConfigException("Error while reading one of the victims file.");
+        } catch (EmailAddress.EmailBadFormat emailBadFormat) {
+            throw new ConfigException("One of the emails is badly formatted.");
         }
     }
 }
