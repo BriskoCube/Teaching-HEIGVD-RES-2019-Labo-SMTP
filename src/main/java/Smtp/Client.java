@@ -28,4 +28,12 @@ public class Client {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public BufferedOutputStream getWriter() {
+        return writer;
+    }
 }

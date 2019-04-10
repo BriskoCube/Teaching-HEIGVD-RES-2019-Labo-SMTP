@@ -4,9 +4,11 @@ public class ServerResponse {
 
     int status;
     String message;
+    boolean more;
 
     public ServerResponse(String line){
         status = Integer.parseInt(line.substring(0,3));
+        more = line.substring(3,4).equals("-");
         message = line.substring(4);
     }
 
@@ -21,5 +23,9 @@ public class ServerResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public boolean hasMore() {
+        return more;
     }
 }

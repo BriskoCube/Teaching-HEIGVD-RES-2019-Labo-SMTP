@@ -32,4 +32,20 @@ public class Email {
     public void addHeader(Header.HeaderType headerType, String value){
         headers.add(new Header(headerType, value));
     }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public EmailAddress getFrom() {
+        return from;
+    }
+
+    public EmailAddress getTo() {
+        return to;
+    }
+
+    public List<Header> getHeaders() {
+        return headers;
+    }
 }

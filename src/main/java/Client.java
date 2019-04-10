@@ -1,5 +1,9 @@
 import Config.AppConfigManager;
 import Config.ConfigManager;
+import Model.EmailAddress;
+import Model.Message;
+import Smtp.Email;
+import Smtp.Sender;
 import Smtp.ServerResponse;
 
 import java.io.*;
@@ -30,18 +34,33 @@ public class Client {
 
     public static void main(String [] args) throws IOException {
 
-        try{
-            ConfigManager cm = AppConfigManager.fromFile(new File("config.properties"));
+        System.out.println( );
 
-            System.out.println(cm.serverHost());
-            System.out.println(cm.serverPort());
+        try{
+
+            Message message = new Message("Test", "Super message spam");
+            Email email = new Email(message, new EmailAddress("julien.quartier@test.ch"), new EmailAddress("sdjh@dg.com"));
+
+            AppConfigManager cm = new AppConfigManager(Client.class.getResourceAsStream("config.properties"));
+
+            Smtp.Client client = new Smtp.Client(cm.serverHost(), cm.serverPort());
+
+
+            Sender sender = new Sender(client, email);
+
+            if(sender.send()){
+                System.out.println("OK");
+            } else {
+                System.out.println("Error");
+            }
+
+
         } catch (ConfigManager.ConfigException e) {
             e.printStackTrace();
+        } catch (EmailAddress.EmailBadFormat emailBadFormat) {
+            emailBadFormat.printStackTrace();
         }
 
-        ServerResponse sr = new ServerResponse("220 smtp.example.com ESMTP Postfix");
-        System.out.println(sr.getMessage());
-        System.out.println(sr.getStatus());
 
 
         /*Client cli = new Client("localhost", 2525);
