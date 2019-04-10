@@ -27,7 +27,7 @@ public class GroupConfigManagerTest {
 
 
     @RepeatedTest(5)
-    public void GroupConfigTest() throws ConfigManager.ConfigException {
+    public void GroupConfigTest() throws ConfigManager.ConfigException, EmailAddress.EmailBadFormat {
 
         // Create random emails for senders
         final List<String> senderEmails = randomEmailList();

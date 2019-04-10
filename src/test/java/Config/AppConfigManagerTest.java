@@ -11,18 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppConfigManagerTest {
 
     @Test
-    public void AppConfigOkTest() {
+    public void AppConfigOkTest() throws ConfigManager.ConfigException {
         String testConfig = "serverhost=localhost\nserverport=2525";
 
         InputStream inputStream = new ByteArrayInputStream(testConfig.getBytes(StandardCharsets.UTF_8));
 
-        try {
-            AppConfigManager appConfigManager = new AppConfigManager(inputStream);
-            assertEquals(appConfigManager.serverHost(), "localhost");
-            assertEquals(appConfigManager.serverPort(), 2525);
-        } catch (ConfigManager.ConfigException e) {
-            e.printStackTrace();
-        }
+        AppConfigManager appConfigManager = new AppConfigManager(inputStream);
+        assertEquals(appConfigManager.serverHost(), "localhost");
+        assertEquals(appConfigManager.serverPort(), 2525);
+
     }
 
     @Test

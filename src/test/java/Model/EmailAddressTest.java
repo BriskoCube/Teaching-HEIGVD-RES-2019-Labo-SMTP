@@ -8,42 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EmailAddressTest {
     @Test
-    public void EmailAddressConstruct() {
+    public void EmailAddressConstruct() throws EmailAddress.EmailBadFormat {
         String mail = "test@test.ch";
 
-        try {
-            EmailAddress emailAddress = new EmailAddress(mail);
+        EmailAddress emailAddress = new EmailAddress(mail);
 
-            assertEquals(emailAddress.getEmail(), mail);
-        } catch (EmailAddress.EmailBadFormat e) {
-            e.printStackTrace();
-        }
+        assertEquals(emailAddress.getEmail(), mail);
     }
 
     @Test
-    public void EmailAddressForHeader() {
+    public void EmailAddressForHeader() throws EmailAddress.EmailBadFormat {
         String mail = "test@test.ch";
 
-        try {
-            EmailAddress emailAddress = new EmailAddress(mail);
+        EmailAddress emailAddress = new EmailAddress(mail);
 
-            assertEquals(emailAddress.forHeader(), "<" + mail + ">");
-        } catch (EmailAddress.EmailBadFormat e) {
-            e.printStackTrace();
-        }
+        assertEquals(emailAddress.forHeader(), "<" + mail + ">");
     }
 
     @Test
-    public void EmailAddressEquals() {
+    public void EmailAddressEquals() throws EmailAddress.EmailBadFormat {
         String mail = "test@test.ch";
 
-        try {
-            EmailAddress emailAddress = new EmailAddress(mail);
+        EmailAddress emailAddress = new EmailAddress(mail);
 
-            assertTrue(emailAddress.equals(new EmailAddress(mail)));
-        } catch (EmailAddress.EmailBadFormat e) {
-            e.printStackTrace();
-        }
+        assertTrue(emailAddress.equals(new EmailAddress(mail)));
     }
 
     @Test
