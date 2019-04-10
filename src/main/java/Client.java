@@ -1,5 +1,6 @@
 import Config.AppConfigManager;
 import Config.ConfigManager;
+import Smtp.ServerResponse;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,6 +38,10 @@ public class Client {
         } catch (ConfigManager.ConfigException e) {
             e.printStackTrace();
         }
+
+        ServerResponse sr = new ServerResponse("220 smtp.example.com ESMTP Postfix");
+        System.out.println(sr.getMessage());
+        System.out.println(sr.getStatus());
 
 
         /*Client cli = new Client("localhost", 2525);

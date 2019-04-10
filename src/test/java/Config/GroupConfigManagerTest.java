@@ -21,13 +21,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GroupConfigManagerTest {
 
     //Charset for emails
-    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+&*-_";
+    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     protected static Random random = new Random();
 
 
     @RepeatedTest(5)
-    public void GroupConfigTest() throws ConfigManager.ConfigException {
+    public void GroupConfigTest() throws ConfigManager.ConfigException, EmailAddress.EmailBadFormat {
 
         // Create random emails for senders
         final List<String> senderEmails = randomEmailList();
