@@ -25,16 +25,6 @@ public class ConfigManager {
         }
     }
 
-    public static ConfigManager fromFile(File filePath) throws ConfigException {
-        try {
-            return new ConfigManager(new FileInputStream(filePath));
-        } catch (FileNotFoundException e) {
-            throw new ConfigException("The configuration file is missing.");
-        }
-    }
-
-
-
     public String serverHost() throws ConfigException {
         String serverHost = prop.getProperty("serverhost");
 
