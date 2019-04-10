@@ -16,6 +16,14 @@ public class GroupConfigManager extends ConfigManager {
         loadGroups();
     }
 
+    public static GroupConfigManager fromFile(File filePath) throws ConfigException {
+        try {
+            return new GroupConfigManager(new FileInputStream(filePath));
+        } catch (FileNotFoundException e) {
+            throw new ConfigException("The group file is missing.");
+        }
+    }
+
     public ArrayList<Group> getGroups() {
         return groups;
     }
