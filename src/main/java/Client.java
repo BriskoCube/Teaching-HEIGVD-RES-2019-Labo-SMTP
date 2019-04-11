@@ -16,7 +16,7 @@ public class Client {
     static final Logger LOG = Logger.getLogger(Client.class.getName());
 
     public static void main(String [] args) {
-        System.out.println("Super client ready to prank\n");
+        System.out.println("~~~ Super client ready to prank ~~~\n");
 
         try{
             Message message = new Message("Test", "Super message spam");
