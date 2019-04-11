@@ -10,7 +10,6 @@ import Smtp.Sender;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,8 +64,6 @@ public class Spamer {
         List<Group> groups = new ArrayList<>();
 
         int victimCount = emails.size() / count - 1;
-
-        System.out.println(victimCount);
 
         for (int i = 0; i < count; i++){
             Group group = new Group(getRandomEmail(emails), getMultipleRandomEmail(emails, victimCount));
