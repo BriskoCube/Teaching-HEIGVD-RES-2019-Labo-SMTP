@@ -19,8 +19,8 @@ public class Header {
         }
     }
 
-    HeaderType headerType;
-    String value;
+    private HeaderType headerType;
+    private String value;
 
     public Header(HeaderType headerType, String value) {
         this.headerType = headerType;
