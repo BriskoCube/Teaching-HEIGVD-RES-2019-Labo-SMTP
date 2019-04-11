@@ -7,29 +7,33 @@ public class Sender {
     Client client;
     Email email;
 
-    public Sender(Client client, Email email) {
+    public static boolean debug = false;
+
+    public Sender(Client client) throws Exception {
         this.client = client;
-        this.email = email;
+
+        hello();
     }
 
-    public boolean sendCmd() {
-        try {
-            hello();
+    public boolean send(Email email) {
 
+        this.email = email;
+
+        try {
             sendServerHeader();
 
             beginData();
             sendData();
             endData();
 
-            quit();
-
             return true;
         } catch (IOException e) {
-            System.out.println("EX: " + e.getMessage());
+            if(debug)
+                System.out.println("EX: " + e.getMessage());
             return false;
         } catch (Exception e) {
-            System.out.println("EX: " + e.getMessage());
+            if(debug)
+                System.out.println("EX: " + e.getMessage());
             return false;
         }
     }
@@ -51,7 +55,8 @@ public class Sender {
             throw new Exception(line);
         }
 
-        System.out.println("S: " + line);
+        if(debug)
+            System.out.println("S: " + line);
 
         return serverResponse;
     }
@@ -88,14 +93,15 @@ public class Sender {
         readServer(250);
     }
 
-    private void quit() throws Exception {
+    public void quit() throws Exception {
         sendCmd("QUIT\r\n");
 
         readServer(221);
     }
 
     private void sendCmd(String str) throws Exception {
-        System.out.print("C: " + str);
+        if(debug)
+            System.out.print("C: " + str);
 
         client.getWriter().write(str.getBytes());
         client.getWriter().flush();

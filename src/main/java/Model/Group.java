@@ -1,13 +1,14 @@
 package Model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Group {
     private Message message;
     private EmailAddress sender;
-    private LinkedList<EmailAddress> victims;
+    private List<EmailAddress> victims;
 
-    public Group(EmailAddress sender, LinkedList<EmailAddress> victims) {
+    public Group(EmailAddress sender, List<EmailAddress> victims) {
         this.sender = sender;
         this.victims = victims;
     }
@@ -20,7 +21,7 @@ public class Group {
         return sender;
     }
 
-    public LinkedList<EmailAddress> getVictims() {
+    public List<EmailAddress> getVictims() {
         return victims;
     }
 
