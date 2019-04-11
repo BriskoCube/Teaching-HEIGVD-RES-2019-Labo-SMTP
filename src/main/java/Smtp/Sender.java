@@ -24,20 +24,16 @@ public class Sender {
     private void authentication() throws Exception {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Username: ");
-        String username = input.nextLine();
-
-        System.out.print("Password: ");
-        String password = input.nextLine();
-
-        input.close();
-
         sendCmd("AUTH LOGIN\r\n");
         readServer(334);
-        sendCmd(Base64.getEncoder().encodeToString(username.getBytes()) + "\r\n");
+        System.out.print("Username: ");
+        sendCmd(Base64.getEncoder().encodeToString(input.nextLine().getBytes()) + "\r\n");
         readServer(334);
-        sendCmd(Base64.getEncoder().encodeToString(password.getBytes()) + "\r\n");
+        System.out.print("Password: ");
+        sendCmd(Base64.getEncoder().encodeToString(input.nextLine().getBytes()) + "\r\n");
         readServer(235);
+
+        input.close();
     }
 
     public boolean send(Email email) {
