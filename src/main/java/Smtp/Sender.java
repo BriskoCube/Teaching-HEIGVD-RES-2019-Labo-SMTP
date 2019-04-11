@@ -2,10 +2,13 @@ package Smtp;
 
 
 import java.io.IOException;
+import java.util.Base64;
+import java.util.Scanner;
 
 public class Sender {
-    Client client;
-    Email email;
+    private Client client;
+    private Email email;
+    private boolean authSupported = false;
 
     public static boolean debug = false;
 
@@ -13,6 +16,29 @@ public class Sender {
         this.client = client;
 
         hello();
+
+        if(authSupported) {
+            authentication();
+        }
+    }
+
+    private void authentication() throws Exception {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Username: ");
+        String username = input.nextLine();
+
+        System.out.print("Password: ");
+        String password = input.nextLine();
+
+        input.close();
+
+        sendCmd("AUTH LOGIN\r\n");
+        readServer(334);
+        sendCmd(Base64.getEncoder().encodeToString(username.getBytes()) + "\r\n");
+        readServer(334);
+        sendCmd(Base64.getEncoder().encodeToString(password.getBytes()) + "\r\n");
+        readServer(235);
     }
 
     public boolean send(Email email) {
@@ -44,7 +70,13 @@ public class Sender {
 
         sendCmd("EHLO SuperClient\r\n");
 
-        while (readServer(250).hasMore()) ;
+        ServerResponse response;
+
+        while ((response = readServer(250)).hasMore()) {
+            if(response.getMessage().contains("AUTH") && response.getMessage().contains("PLAIN")) {
+                authSupported = true;
+            }
+        }
     }
 
     private ServerResponse readServer(int expectedCode) throws Exception {

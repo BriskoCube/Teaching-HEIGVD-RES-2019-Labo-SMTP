@@ -21,15 +21,12 @@ public class Spamer {
     static Random random = new Random();
 
     public static void main(String [] args) {
-        System.out.println("Super client ready to prank\n");
+        System.out.println("~~~ Super client ready to prank ~~~\n");
 
-        try{
-            //Message message = new Message("Test", "Super message spam");
-
+        try {
             ConfigManager cm = new ConfigManager(Spamer.class.getResourceAsStream("config.properties"));
             VictimsLoader vl = new VictimsLoader(Spamer.class.getResourceAsStream("victims.list"));
             MessagesLoader ml = new MessagesLoader(Spamer.class.getResourceAsStream("messages.json"));
-
 
             List<Message> messages = ml.getMessages();
             List<Group> groups = createGroups(cm.groupCount(), vl.getEmails());
@@ -54,6 +51,7 @@ public class Spamer {
                 }
             }
 
+            sender.quit();
             client.close();
 
         } catch (ConfigManager.ConfigException ex) {

@@ -1,10 +1,9 @@
 package Smtp;
 
 public class ServerResponse {
-
-    int status;
-    String message;
-    boolean more;
+    private int status;
+    private String message;
+    private boolean more;
 
     public ServerResponse(String line){
         status = Integer.parseInt(line.substring(0,3));
