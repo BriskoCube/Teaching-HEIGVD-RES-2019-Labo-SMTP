@@ -88,6 +88,12 @@ rupak@live.com
 
 ![Uml](./figures/uml.png)
 
+### Configuration loaders
+The app has three configurations loaders. Their role is to parse the parse and validate data.
+* `ConfigManager` Load app properties.
+* `MessagesLoader` Parse JSON containing messages.
+* `VictimsLoader` Parse email list
+
 
 
 Your report MUST include the following sections:
