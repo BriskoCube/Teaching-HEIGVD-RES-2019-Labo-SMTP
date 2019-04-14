@@ -33,6 +33,7 @@ public class Spamer {
             Smtp.Client client = new Smtp.Client(cm.serverHost(), cm.serverPort());
             Sender sender = new Sender(client);
 
+
             for (Group group : groups){
                 Message message = messages.get(random.nextInt(messages.size()));
                 System.out.printf("\nEmails from: %s\n", group.getSender());

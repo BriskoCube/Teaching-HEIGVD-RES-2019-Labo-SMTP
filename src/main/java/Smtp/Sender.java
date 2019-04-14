@@ -76,6 +76,11 @@ public class Sender {
 
     private ServerResponse readServer(int expectedCode) throws Exception {
         String line = client.getReader().readLine();
+
+        if(line == null){
+            throw new Exception("Empty server response");
+        }
+
         ServerResponse serverResponse = new ServerResponse(line);
 
         if (serverResponse.getStatus() != expectedCode) {
