@@ -94,6 +94,13 @@ The app has three configurations loaders. Their role is to parse the parse and v
 * `MessagesLoader` Parse JSON containing messages.
 * `VictimsLoader` Parse email list
 
+## Exchnage between client and server
+![Exchnage](./figures/exchange.png)
+
+* **RED** the hello squence and authentication between the server and client. The server response contains supported mods (code `250`). The app user is asked for credentials. As the used auth method is *PLAIN* the client sends username and password in base64. If the server repond with `235` we can begin to send emails.
+* **GREEN** Sends the first email. Starts with server *Header* once done sends *DATA* command that says we are beginning to sends actual email content.
+* **BLUE** An another email. Same as before.
+* **NOT SHOWN** After the last email, the command *QUIT* is sent to the server to close the connection.
 
 
 Your report MUST include the following sections:
