@@ -88,14 +88,27 @@ rupak@live.com
 
 ![Uml](./figures/uml.png)
 
-### Configuration loaders
+### Configuration loaders (*Config namespace*)
 The app has three configurations loaders. Their role is to parse the parse and validate data.
 * `ConfigManager` Load app properties.
 * `MessagesLoader` Parse JSON containing messages.
 * `VictimsLoader` Parse email list
 
+### SMTP namespace
+Classes used only for the implementation of smtp.
+* `Smtp\Email` The email class contains all data defining an email (Subject, from, to and body). On construct create Header objects (FROM, TO, DATE and SUBJECT).
+* `Smtp\Sender` Handle all communication between the client and the server. If the server implements PLAIN auth, asks the user to input his credentials. Runs the sequence of the protocol (HELO, AUTH?, DATA+, QUIT), checks at each step if the server reponse is the expected one.
+* `Smtp\Client` Establishes the low-level socket with the smtp server. Provides two streams, a reader and a writer.
+
+### Model namespace
+Simple objects defining program datas. 
+
+
+
 ## Exchnage between client and server
 ![Exchnage](./figures/exchange.png)
+
+> you can show full client / server communication by setting `Sender.debug` to `true`
 
 * **RED** the hello squence and authentication between the server and client. The server response contains supported mods (code `250`). The app user is asked for credentials. As the used auth method is *PLAIN* the client sends username and password in base64. If the server repond with `235` we can begin to send emails.
 * **GREEN** Sends the first email. Starts with server *Header* once done sends *DATA* command that says we are beginning to sends actual email content.
