@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class ConfigManager {
-    protected Properties prop = new Properties();
+    private Properties prop = new Properties();
 
     public ConfigManager(InputStream configStream) throws ConfigException {
         try {

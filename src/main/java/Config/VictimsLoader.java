@@ -18,9 +18,8 @@ public class VictimsLoader {
 
     private List<EmailAddress> emails = new ArrayList<>();
 
-    public VictimsLoader(InputStream configStream) throws ConfigManager.ConfigException {
+    public VictimsLoader(InputStream configStream) {
         try {
-
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(configStream));
 
             String line;
@@ -29,7 +28,7 @@ public class VictimsLoader {
                 try{
                     EmailAddress email = new EmailAddress(line);
                     emails.add(email);
-                }catch (EmailAddress.EmailBadFormat emailBadFormat) {
+                } catch (EmailAddress.EmailBadFormat emailBadFormat) {
                     LOG.log(Level.WARNING, String.format("The value '%s' is not an email", line));
                 }
             }
