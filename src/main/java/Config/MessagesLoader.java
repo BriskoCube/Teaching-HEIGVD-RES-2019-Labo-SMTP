@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MessagesLoader {
 
-    List<Message> messages;
+    private List<Message> messages;
 
     public MessagesLoader(InputStream configStream) throws UnsupportedEncodingException {
         Gson gson = new Gson();
