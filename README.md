@@ -3,7 +3,9 @@
 # Teaching-HEIGVD-RES-2019-Labo-SMTP
 
 ## Description
-
+Simple SMTP client implemented in JAVA.
+The app group emails randomly from a user defined list.
+Each of the groups have a uniq sender, message and recipients addresses.
 
 
 ## Setup instructions
@@ -39,7 +41,47 @@ Delete container with:
 - `docker rm mockmock`
 
 ### Prank campaign configuration
+The app is configured with three files.
+#### config.properties
+This file is used for basic app configuration. 
+* `serverhost` define the mail server ip address or hostname
+* `serverport` define the mail server port
+* `groupcount` the number of spamming groups to create randomly
+```
+serverhost=smtp.mailtrap.io
+serverport=2525
 
+groupcount=60
+```
+
+#### messages.json
+In this file you can define each spam email. You can define a `subject` and a `body` value. You can add as much email as you want.
+One email is selected randomly for each group. 
+```json
+[
+  {
+    "subject": "Morbi vulputate ultricies",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra malesuada luctus. Morbi vulputate ultricies euismod. Ut consequat hendrerit viverra. Etiam faucibus posuere sapien ac feugiat. Morbi faucibus elit ac nibh blandit, a venenatis dolor porta. Phasellus scelerisque scelerisque elit, ac facilisis erat gravida sit amet. \r\nClass aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris elementum scelerisque arcu, nec posuere risus efficitur sit amet. Fusce pharetra tempor ex, ac maximus massa facilisis eu. Vivamus et sem dui. Vestibulum sapien ligula, venenatis ut dictum sit amet, aliquam nec risus. Nam eget aliquam tellus, rhoncus lacinia sem. \r\nVestibulum congue elit orci, eu sodales velit egestas et."
+  },
+  {
+    "subject": "Nunc maximus",
+    "body": "Aliquam erat volutpat.\r\n\r\nPraesent dignissim nulla eu neque feugiat rhoncus. Nunc maximus mattis est quis ornare. Vivamus sit amet felis egestas, scelerisque massa eget, ultrices mauris. Proin tristique leo eu enim rhoncus, eu ornare arcu tempus. Curabitur sit amet euismod est. Integer lectus nisl, finibus ac gravida eget, posuere at ex. \r\nNunc ut euismod tellus. Integer nec elit auctor, egestas ante et, tincidunt risus. Mauris ut ex eget velit consequat posuere at nec leo. Donec eu sapien at erat iaculis dapibus."
+  }
+]
+```
+
+#### victims.list
+This file contains a list of all target email. Each address is separated with a new line.
+Example with random emails:
+```
+teverett@att.net
+dkeeler@mac.com
+techie@gmail.com
+jdhedden@outlook.com
+ullman@yahoo.com
+oechslin@verizon.net
+rupak@live.com
+```
 
 
 ## Implementation description
