@@ -4,7 +4,9 @@
 
 ## Description
 Simple SMTP client implemented in JAVA.
-The app group emails randomly from a user defined list.
+
+The email of each group is chosed randomly from the user defined list as the sender and the victims.
+
 Each of the groups have a uniq sender, message and recipients addresses.
 
 
